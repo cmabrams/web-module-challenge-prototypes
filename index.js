@@ -15,9 +15,40 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
 
+function Person(nameOfPerson,ageOfPerson) {
+  this.stomach = [];
+  this.name = nameOfPerson;
+  this.age = ageOfPerson;
 }
+
+Person.prototype.eat = function(someFood){
+  if(this.stomach.length < 10){
+    this.stomach.push(someFood);
+    return this.stomach;
+  }
+}
+
+Person.prototype.poop = function(){
+  this.stomach = [];
+  return this.stomach;
+}
+
+Person.prototype.toString = function(){
+  return `${this.name},${this.age}`;
+}
+
+const Penelope = new Person('Penelope',2);
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
+Penelope.eat('cake');
 
 
 /*
@@ -36,8 +67,21 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car(modelOfCar,milesPerGallonOfCar) {
+  this.model = modelOfCar;
+  this.milesPerGallon = milesPerGallonOfCar;
+  this.tank = 0;
+  this.odometer = 0;
+}
 
+Car.prototype.fill = function(gallons){
+  this.tank = this.tank + gallons;
+  return this.tank;
+}
+
+Car.prototype.drive = function(distance){
+  this.odometer = this.odometer + distance;
+  return `I ran out of fuel at ${this.odometer} miles!`;
 }
 
 
@@ -49,18 +93,28 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
+function Baby(nameOfPerson,ageOfPerson,favoriteToyOfBaby) {
+  Person.call(this,favoriteToyOfBaby);
+  this.name = nameOfPerson;
+  this.age = ageOfPerson;
+  this.favoriteToy = favoriteToyOfBaby;
+  
+}
 
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`;
 }
 
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window/Global Object Binding - When the 'this' keyword is in the global scope it is refering to the entire window. 
+  2. Implicit Binding - When a dot calls a function, the object before the dot is 'this'
+  3. New Binding - in a constructor function, this refers to the object that is used when we call this.
+  4. Explicit Binding - when we use call or apply, this is defined. 
 */
 
 ///////// END OF CHALLENGE /////////
